@@ -12,6 +12,9 @@ for f in $FILES
 do
 if [ ${f:(-5)} == .summ ]; then
 sed -i '1 s/[0-9]//g' $f
+sed -i '1 s/-//g' $f
+sed -i '1 s/)//g' $f
+sed -i '1 s/(//g' $f
 else
 echo "Error: not .summ file"
 fi
