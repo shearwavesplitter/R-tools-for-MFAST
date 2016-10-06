@@ -1,4 +1,4 @@
-sm.proj <- function(summf,lm=2,savpath="~",savnam="proj.png",mlat="NULL",mlon="NULL",pierce=1.5,zoom=13,xvec="NULL",yvec="NULL") {
+sm.proj <- function(summf,lm=2,pierce=1.5,savpath="~",savnam="proj.png",mlat="NULL",mlon="NULL",zoom=13,xvec="NULL",yvec="NULL") {
 
 sm <- summf
 

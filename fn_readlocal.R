@@ -11,11 +11,17 @@ file_list <- list.files(pattern = "\\.summ$")
 
 for (file in file_list) {
 
+  if (exists("sm") && !('sm' %in% gobjects)) {
+    temp_dataset <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
+    sm <- rbind(sm, temp_dataset)
+    rm(temp_dataset)
+
+  }
   if (!exists("sm")) {
     sm <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
   }
 
-  if (exists("sm") && !('sm' %in% gobjects)) {
+if (exists("sm") && ('sm' %in% gobjects) && (swtc == 1)) {
     temp_dataset <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
     sm <- rbind(sm, temp_dataset)
     rm(temp_dataset)
@@ -25,14 +31,10 @@ for (file in file_list) {
     sm <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
   swtc <- 1
 }
-if (exists("sm") && ('sm' %in% gobjects) && (swtc == 1)) {
-    temp_dataset <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
-    sm <- rbind(sm, temp_dataset)
-    rm(temp_dataset)
 
-  }
 
  }
+
 
 
 sm <- sm[sm$gradeABCNR %in% c("ACl","BCl","A","B"), ] #Keep only A and B grade measurements
