@@ -163,6 +163,9 @@ unev <- unique(sub2$cuspid)
 
 
 for (i in 1:length(unev)){
+if(exists('add')){
+rm(add)
+}
 eventn <- unev[i]
 fsub <- subset(sub2, cuspid == eventn)
 if (length(fsub$fast) == 1){

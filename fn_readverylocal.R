@@ -6,7 +6,7 @@ sm.cleansumm(path)
 setwd(path)
 swtc <- 0
 gobjects <- ls(envir=.GlobalEnv)
-
+file_list <- list.files(pattern = "\\.summ$")
 for (file in file_list) {
 
   if (exists("sm") && !('sm' %in% gobjects)) {
@@ -161,6 +161,9 @@ unev <- unique(sub2$cuspid)
 
 
 for (i in 1:length(unev)){
+if(exists('add')){
+rm(add)
+}
 eventn <- unev[i]
 fsub <- subset(sub2, cuspid == eventn)
 if (length(fsub$fast) == 1){
