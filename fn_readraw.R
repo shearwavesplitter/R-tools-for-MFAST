@@ -1,7 +1,7 @@
 #reads in all .Summ files in a particular folder, filters, converts to radians and applies defines data as circular geographic
 #New version filters out non AB graded measurements and only keeps one of the filters (events aren't repeated)
 
-sm.readraw <- function(path, station="NULL",tlagmax=1,minsnr=3) {
+sm.readraw <- function(path, station=NULL,tlagmax=1,minsnr=3) {
 sm.cleansumm(path)
 setwd(path)
 swtc <- 0
@@ -65,7 +65,7 @@ subs <- cbind(subs,finalgrade)
 #subs <- subs[subs$finalgrade %in% c("AB"), ]  # keep AB grade measurements
 #subs <- subs[subs$lambdamax > minl, ]
 
-if (station[1] == "NULL") {
+if (is.null(station[1])) {
 } else {
 
 subs <- subs[subs$stat %in% c(station), ]

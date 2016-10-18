@@ -1,5 +1,6 @@
-sm.stde <- function(data,seed="NULL",iter=9999) {
-	if (seed != "NULL") {
+sm.stde <- function(data,seed=NULL,iter=9999) {
+	if (is.null(seed)) {
+}else{
 		set.seed(seed)
 	}
 	vals <- data*2
