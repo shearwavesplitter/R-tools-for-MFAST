@@ -4,14 +4,14 @@ rm(list=ls())
 library(circular)
 
 library(datasets)
-library(animation)
+#library(animation)
 library(plot3D)
 library(movMF)
-library(cclust)
+#library(cclust)
 
 
 #Disable these to use server version
-library(viridis)
+#library(viridis)
 library(RColorBrewer)
 library(fields)
 library(ggplot2)

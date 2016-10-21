@@ -67,7 +67,7 @@ subs <- cbind(subs,finalgrade)
 subs <- subs[subs$finalgrade %in% c("AB"), ]  # keep AB grade measurements
 subs <- subs[subs$lambdamax > minl, ]
 
-if (is.null(tation[1])) {
+if (is.null(station[1])) {
 } else {
 
 subs <- subs[subs$stat %in% c(station), ]
