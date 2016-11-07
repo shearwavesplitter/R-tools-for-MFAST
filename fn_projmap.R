@@ -1,4 +1,4 @@
-sm.proj <- function(summf,lm=2,pierce=1.5,savpath="~",savnam="proj.png",mlat="NULL",mlon="NULL",zoom=13,xvec="NULL",yvec="NULL") {
+sm.proj <- function(summf,lm=2,pierce=1.5,savpath="~",savnam="proj.png",mlat="NULL",mlon="NULL",zoom=13,xvec="NULL",yvec="NULL",hvec=NULL) {
 
 sm <- summf
 
@@ -69,11 +69,14 @@ rn <- rainbow(length(unique(stat)))
 cols <- rn[stat]
 }
 
+if (is.null(hvec)){
+hvec <- rep(0,length(unique(stat)))
+}
+dp <- sm$depthkm + hvec[stat]
 
-smrc1 <- sm
-smrc <- sm$fast
+smrc1 <- data.frame(smrcA,evla,evlo,dp,tlag,slat,slon,cols)
 
-
+smrc <- smrc1$smrcA
 
 
 ymin <- -38.6346
@@ -81,6 +84,7 @@ xmin <- 176.021
 
 ymax <- -38.5134
 xmax <- 176.51
+smrc1
 dymax <- (ymax-ymin)*110.574
 dxmax <- (xmax-xmin)*111.320*cos(rad(ymax))
 
@@ -96,41 +100,20 @@ dyst <- (slat-ymin)*110.574
 #dev.new(width=10,height=10)
 
 
+
 ## projection plots
-#pj <- 1.5 #piercing depth for projection
-pj <- pierce
+pj <- pierce #piercing depth for projection
 
-angles <- rad(sm$anginc)
-baz <- rad(sm$baz)
-q <- ceiling(baz/(pi/2))
+x <- dx-dxs
+y <- dy-dys
+theta <- atan2(y,x)
+dist <- sqrt(x^2+y^2)
+dtheta <- atan2(smrc1$dp,dist)
 
-for (i in 1:length(q)){
-if (q[i] == 1) {
-temp <- baz[i]
-}
-if (q[i] == 2) {
-temp <- pi-baz[i]
-}
-if (q[i] == 3) {
-temp <- baz[i]-pi
-}
-if (q[i] == 4) {
-temp <- 2*pi-baz[i]
-}
+a <- pj/tan(dtheta)
 
-if (i ==1){
-baz2 <- temp
-}else{
-baz2 <- rbind(baz2,temp)
-}
-
-}
-baz2 <- as.numeric(baz2[,1])
-
-rcirc <- pj*sin(angles)
-
-xn <- rcirc*sin(baz2)
-yn <- rcirc*cos(baz2)
+xn <- a*cos(theta)
+yn <- a*sin(theta)
 
 xc <- xn+dxs
 yc <- yn+dys
@@ -145,6 +128,8 @@ yv1 <- pjl*sin(pi/2-as.numeric(smrc))+yc
 xv2 <- pjl*cos(pi/2-as.numeric(smrc)+pi)+xc
 yv2 <- pjl*sin(pi/2-as.numeric(smrc)+pi)+yc
 
+segments(xc,yc,x1=xv1,y1=yv1,col=smrc1$cols,)
+segments(xc,yc,x1=xv2,y1=yv2,col=smrc1$cols)
 
 la1 <- yv1/110.574+ymin
 lo1 <- xv1/(111.320*cos(rad(la1)))+xmin

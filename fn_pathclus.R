@@ -29,7 +29,7 @@ print(rtest$p)
 
 pval <- round(rtest$p,digits=3)
 textname <- paste0(station,"_cluster",1,"_p-val_",pval)
-filen <- paste0("~/stefan_catalogs/stefan/",textname)
+filen <- paste0(path,"/",textname)
 cuspids <- statn$cuspid
 write.table(cuspids,file=filen,col.names=FALSE,row.names=FALSE,quote=FALSE)
 
