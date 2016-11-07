@@ -72,7 +72,7 @@ cols <- rn[stat]
 if (is.null(hvec)){
 hvec <- rep(0,length(unique(stat)))
 }
-dp <- sm$depthkm + hvec[stat]
+dp <- sm$depthkm - hvec[stat] #you must subtract elevation to get the projection in the right place. This is easy to prove by drawing straight line ray paths
 
 smrc1 <- data.frame(smrcA,evla,evlo,dp,tlag,slat,slon,cols)
 
