@@ -1,7 +1,7 @@
 #reads in all .Summ files in a particular folder, filters, converts to radians and applies defines data as circular geographic
 #New version filters out non AB graded measurements and only keeps one of the filters (events aren't repeated)
 
-sm.read_vl <- function(path, tlagmax=0.2,station=NULL,minl=0,minsnr=3,type=2) {
+sm.read_vl <- function(path, tlagmax=0.2,station=NULL,minl=0,minsnr=1.5,type=2) {
 sm.cleansumm(path)
 setwd(path)
 swtc <- 0

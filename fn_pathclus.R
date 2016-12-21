@@ -96,15 +96,16 @@ colz <- brewer.pal(pr,"Dark2")
 clus <- predict(fMF)
 cols <- colz[clus]
 if (plotextra == TRUE){
-postscript(file=paste0(path,"/",station,"_2D.eps"), onefile=FALSE, horizontal=FALSE)
-plot(dx,dy,col=cols)
+postscript(file=paste0(path,"/",station,"_2D.eps"), onefile=FALSE, horizontal=FALSE,width=7,height=7,paper='special')
+par(pty="s")
+plot(dx,dy,col=cols,xlab="x (km)",ylab="y (km)",asp=1)
 points(sx,sy,pch=17)
 dev.off()
 }
 g <- 0
 if (plotextra == TRUE){
 
-postscript(file=paste0(path,"/",station,"_3D.eps"), onefile=FALSE, horizontal=FALSE)
+postscript(file=paste0(path,"/",station,"_3D.eps"), onefile=FALSE, horizontal=FALSE,width=7,height=7,paper='special')
 par(mfrow = c(1, 1))
 M <- mesh(seq(0, 2*pi, length.out = 100),
 seq(0, pi/2, length.out = 100))
