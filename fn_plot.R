@@ -1,5 +1,5 @@
 #plots axial data
-sm.plot_2 <- function(data, name1="raw.eps", name2="double.eps", wd="~/R_MFAST",ty="p",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE) {
+sm.plot <- function(data, name1="raw.eps", name2="double.eps", wd="~/R_MFAST",ty="p",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE) {
 setwd(wd)
 #Mean for plotting
 smSS <-data*2
