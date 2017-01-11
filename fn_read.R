@@ -4,38 +4,18 @@
 sm.read <- function(path, tlagmax=1,station=NULL,minl=0,minsnr=3,type=2) {
 sm.cleansumm(path)
 setwd(path)
-swtc <- 0
-gobjects <- ls(envir=.GlobalEnv)
 
 file_list <- list.files(pattern = "\\.summ$")
 
-for (file in file_list) {
+tabs <- paste0(path,"/",file_list)
+res <- lapply(tabs,read.csv)
+sm <- do.call(rbind , res)
 
-  if (exists("sm") && !('sm' %in% gobjects)) {
-    temp_dataset <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
-    sm <- rbind(sm, temp_dataset)
-    rm(temp_dataset)
+if (is.null(station[1])) {
+} else {
 
-  }
-  if (!exists("sm")) {
-    sm <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
-  }
-
-if (exists("sm") && ('sm' %in% gobjects) && (swtc == 1)) {
-    temp_dataset <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
-    sm <- rbind(sm, temp_dataset)
-    rm(temp_dataset)
-
-  }
- if (exists("sm") && ('sm' %in% gobjects) && (swtc == 0)) {
-    sm <- read.csv(file, sep = ",")[ ,c('event','stat','slat','slon','cuspid','year','doy_det','evla','evlo','distevstat','depthkm','mag','baz','spol','Dspol','wbeg','wend','SNR','tlag','Dtlag','fast','Dfast','anginc','anginc_corr','type_ini','timestamp','comment','nyquist','gradeABCNR','filt_lo','filt_HI','bandang','pickgrade','lambdamax','ndf','lambda_min','ttime','maxfreq')]
-  swtc <- 1
+sm <- sm[sm$stat %in% c(station), ]
 }
-
-
- }
-
-
 
 sm <- sm[sm$gradeABCNR %in% c("ACl","BCl","A","B"), ] #Keep only A and B grade measurements
 
@@ -67,11 +47,7 @@ subs <- cbind(subs,finalgrade)
 subs <- subs[subs$finalgrade %in% c("AB"), ]  # keep AB grade measurements
 subs <- subs[subs$lambdamax > minl, ]
 
-if (is.null(station[1])) {
-} else {
 
-subs <- subs[subs$stat %in% c(station), ]
-}
 ###############
 
 #Filtering out the same event with different filters. Requires event to be read in. Type 1: First filter is kept. Doesnt not check if there are differences between filters
