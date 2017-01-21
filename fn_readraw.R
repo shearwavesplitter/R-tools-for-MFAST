@@ -3,7 +3,7 @@
 
 sm.readraw <- function(path, station=NULL,tlagmax=1,minsnr=3) {
 sm.cleansumm(path)
-
+setwd(path)
 file_list <- list.files(pattern = "\\.summ$")
 
 tabs <- paste0(path,"/",file_list)
