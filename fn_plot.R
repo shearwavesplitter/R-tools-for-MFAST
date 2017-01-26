@@ -1,6 +1,6 @@
 #plots axial data
-sm.plot <- function(data, name1="raw.eps", name2="double.eps", wd="~/R_MFAST",ty="p",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE) {
-setwd(wd)
+sm.plot <- function(data, name1="raw.eps", name2="double.eps", path="~",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE) {
+setwd(path)
 #Mean for plotting
 smSS <-data*2
 m <- mean(smSS)
@@ -10,7 +10,7 @@ trigm2 <- trigonometric.moment(smSS, p=2, center=TRUE) #Second trigonometric mom
 #Median for plotting
 med <- median.circular(smSS)
 tmed <- med/2
-
+ty <- "p"
 #Save axial plot as raw.eps
 postscript(file=name1, onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='special')
 smrc <- data

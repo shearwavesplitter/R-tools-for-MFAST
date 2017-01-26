@@ -98,7 +98,7 @@ cols <- colz[clus]
 if (plotextra == TRUE){
 postscript(file=paste0(path,"/",station,"_2D.eps"), onefile=FALSE, horizontal=FALSE,width=7,height=7,paper='special')
 par(pty="s")
-plot(dx,dy,col=cols,xlab="x (km)",ylab="y (km)",asp=1)
+plot(dx,dy,col=cols,xlab="x (km)",ylab="y (km)",asp=1,cex.axis=1.5,cex.lab=1.5)
 points(sx,sy,pch=17)
 dev.off()
 }
@@ -117,7 +117,7 @@ z2 <- cos(v)
 #scatter3D(x2, y2, -z2, pch = ".", col = "lightgrey", bty = "f", cex = 2, colkey = FALSE,zlim=c(-1,1),theta=0)
 scatter3D(x2, y2, -z2, pch = ".", col = "lightgrey", bty = "f", cex = 2, colkey = FALSE,zlim=c(-1,1),theta=rot)
 
-points3D(x,y,-z,colvar=clus,col=brewer.pal(pr,"Dark2"),zlim=c(-1,1),add=TRUE,pch = ".",cex=5,colkey=FALSE)
+points3D(x,y,-z,colvar=clus,col=brewer.pal(pr,"Dark2"),zlim=c(-1,1),add=TRUE,pch = ".",cex=5,colkey=FALSE,cex.axis=1.5,cex.lab=1.5)
 dev.off()
 }
 
