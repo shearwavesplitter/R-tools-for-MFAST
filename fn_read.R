@@ -233,6 +233,12 @@ return(uniquev)
 
 }
 
+sm.read_l <- function(path, tlagmax=0.4,station=NULL,minl=0,minsnr=3,type=2) {
+d <- sm.read(path,tlagmax=tlagmax,station=station,minl=minl,minsnr=minsnr,type=type)
+return(d)
+}
 
-
-
+sm.read_vl <- function(path, tlagmax=0.2,station=NULL,minl=0,minsnr=1.5,type=2) {
+d <- sm.read(path,tlagmax=tlagmax,station=station,minl=minl,minsnr=minsnr,type=type)
+return(d)
+}
