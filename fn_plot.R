@@ -1,5 +1,24 @@
 #plots axial data
-sm.plot <- function(data, name1="raw.eps", name2="double.eps", path="~",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE) {
+sm.plot <- function(data, name1="raw.eps", name2="double.eps", path="~",cols="blue",antipodal="lightblue",bins=16,kd=TRUE,arrow=TRUE,medarrow=FALSE,sym=16) {
+data <- circular(data,type="angles",units="radians",template="geographics")
+## place data on -90 to 90 degrees
+for (i in 1:length(data)){
+if (data[i] > pi/2) {
+data[i] <- data[i]-pi
+}
+if (data[i] <= -pi/2) {
+data[i] <- data[i]+pi
+}
+}
+for (i in 1:length(data)){
+if (data[i] > pi/2) {
+data[i] <- data[i]-pi
+}
+if (data[i] <= -pi/2) {
+data[i] <- data[i]+pi
+}
+}
+
 setwd(path)
 #Mean for plotting
 smSS <-data*2
@@ -16,15 +35,15 @@ postscript(file=name1, onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='s
 smrc <- data
 
 
-plot(smrc,pch=16,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
-rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=16)
-points(smrc+pi,pch=16,col=antipodal,stack=T,shrink=1.2,bins=180,type=ty)
-#rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=16)
+plot(smrc,pch=sym,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
+rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
+points(smrc+pi,pch=sym,col=antipodal,stack=T,shrink=1.2,bins=180,type=ty)
+#rose.diag(smrc,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
 
 
 #visualise axial data in roseplot
 sma <- smrc+pi
-rose.diag(sma,bins=bins,col="lightgrey",prop=1.3,add=TRUE,shrink=1.2,pch=16)
+rose.diag(sma,bins=bins,col="lightgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
 
 #Kernal density for axial data
 if (kd == TRUE){
@@ -51,8 +70,8 @@ dev.off()
 
 postscript(file=name2, onefile=FALSE, horizontal=FALSE,width=9,height=9,paper='special')
 
-plot(smSS,pch=16,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
-rose.diag(smSS,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=16)
+plot(smSS,pch=sym,col=cols,stack=T,shrink=1.2,bins=180,ticks=T,type=ty)
+rose.diag(smSS,bins=bins,col="darkgrey",prop=1.3,add=TRUE,shrink=1.2,pch=sym)
 if (kd == TRUE){
 lines(density.circular(smSS,bw=10),lwd=2,lty=3)
 }
