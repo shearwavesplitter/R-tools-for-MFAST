@@ -16,8 +16,8 @@ sm.stde <- function(data,seed=NULL,iter=9999) {
 		}
 	}
 
-	sd <- sd.circular(means)
-	sd <- asin(sd)
+	sd <- sd.circular(means*2)
+	#sd <- asin(sd)
 sd <- sd/2
 return(sd)
 }
